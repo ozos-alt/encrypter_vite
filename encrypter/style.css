@@ -1,0 +1,52 @@
+body {
+  background-attachment:fixed;
+  background-image: linear-gradient(to bottom right, #d91fed, #1f71ed);
+}
+
+.container {
+  background: #3d4237;
+  margin: auto;
+  width: 50%;
+  border-radius: 25px;
+  padding: 20px;
+  width: 300px;
+  height: 400px;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.operation_select {
+  margin: auto;
+  width: 25%;
+  position: relative;
+  top: 1%;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.input_form {
+  padding: 40px;
+}
+
+.title {
+  text-align: center;
+  color: #1f9eed;
+  margin: auto;
+}
+
+
+td {
+  padding: 10px;
+}
+
+input {
+  border-radius: 5px;
+  box-shadow: none;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+}

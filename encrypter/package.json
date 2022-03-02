@@ -1,0 +1,20 @@
+{
+  "name": "encrypter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.8.0",
+    "vite-plugin-tauri": "^1.1.2"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.0.0-rc.1",
+    "@tauri-apps/cli": "^1.0.0-rc.5",
+    "seedrandom": "^3.0.5"
+  }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/main.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="title">
+        <h2>Encrypter</h2>
+      </div>
+      <div class="operation_select">
+        <select name="encrypt_decrypt" id="encrypt_decrypt" onchange="operation_select()">
+          <option value="encrypt">encrypt</option>
+          <option value="decrypt">decrypt</option>
+        </select>
+      </div>
+      <div class="input_form">
+        <table>
+
+          <tr>
+            <td>
+              <input type="text" placeholder="Clear text" id="encrypt_input">
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <select id="encryption_method"  name="encryption_method">
+                <option value="mono_alphabetic">mono alphabetic</option>
+                <option value="poly_alphabetic">poly alphabetic</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <input type="number" placeholder="encryption key" id="encryption_key" >
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <input type="button" value="run" id="encrypt_button" onclick="run_button_pressed()">
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <input type="text" placeholder="Encrypted text" id="encrypt_output">
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+    </div>
+  </body>
+</html>
