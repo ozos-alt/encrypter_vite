@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="/style.css">
-    <script src="/main.js"></script>
+    <script type="module" src="/main.js"></script>
   </head>
 
   <body>
@@ -11,7 +11,7 @@
         <h2>Encrypter</h2>
       </div>
       <div class="operation_select">
-        <select name="encrypt_decrypt" id="encrypt_decrypt" onchange="operation_select()">
+        <select name="encrypt_decrypt" id="encrypt_decrypt">
           <option value="encrypt">encrypt</option>
           <option value="decrypt">decrypt</option>
         </select>
@@ -42,7 +42,7 @@
 
           <tr>
             <td>
-              <input type="button" value="run" id="encrypt_button" onclick="run_button_pressed()">
+              <input type="button" value="run" id="encrypt_button">
             </td>
           </tr>
 

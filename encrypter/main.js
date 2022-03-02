@@ -1,12 +1,30 @@
 import * as seedrandom from 'seedrandom'
+
+//Global encrypt / decrypt mode select (0 encrypt || 1 decrypt)
 let encrypt_decrypt = 0;
 
+//Button press listener
+let button = document.getElementById('encrypt_button')
+button.addEventListener("click", () => {
+    run_button_pressed()
+});
+
+//Method select listener
+let operation_selector = document.getElementById("encrypt_decrypt")
+operation_selector.addEventListener("change", () => {
+    operation_select()
+})
 
 
+
+
+
+//Switch between encrypt and decrypt mode and set a global variable accordingly
 function operation_select() {
     let input_field = document.getElementById("encrypt_input");
     let output_field = document.getElementById("encrypt_output");
     let operation_select = document.getElementById("encrypt_decrypt")
+
 
     if(operation_select.value === "encrypt") {
         input_field.placeholder = "Cleartext";
@@ -18,19 +36,22 @@ function operation_select() {
         output_field.placeholder = "Cleartext";
         encrypt_decrypt = 1;
     }
+
 }
 
 
 
+//Runs once the "run" button is pressed
 function run_button_pressed() {
-    let rng = seedrandom('Hello!')
-    console.log(rng())
 
+    //get handles to all needed elements
     let input_field = document.getElementById("encrypt_input");
     let output_field = document.getElementById("encrypt_output");
     let method_selection = document.getElementById("encryption_method");
-    let key = parseInt(document.getElementById("encryption_key").value);
 
+
+    //get and sanitize user input
+    let key = parseInt(document.getElementById("encryption_key").value);
     let userInput = input_field.value.replace(/[^A-Z0-9]/ig, "")
     userInput = userInput.toLowerCase();
 
@@ -49,22 +70,21 @@ function run_button_pressed() {
             console.log("Key:" + Math.abs(key))
         }
         if(method_selection.value === "poly_alphabetic") {
-            input_field.value = "poly";
+            //TODO: call to poly-alphabetical encryption function
         }
     }
 
     //if the program is in decrypt mode
     if (encrypt_decrypt === 1) {
-        if(method_selection.value === "mono_alphabetic") {
+        if (method_selection.value === "mono_alphabetic") {
             output_field.value = caesar_operation(userInput, -Math.abs(key))
             console.log("Key:" + -Math.abs(key))
             input_field.value = "";
         }
+        if(method_selection.value === "poly_alphabetic") {
+            //TODO: call to poly-alphabetical decryption function
+        }
     }
-
-
-
-
 }
 
 //caesar shifts an input string and returns the encrypted version.
@@ -81,7 +101,7 @@ function caesar_operation(input, key) {
     return(encrypted_text)
 }
 
-//shifts letters with support for negative keys
+//Shift letters with support for negative keys
 function shifted_letter(char, key) {
     let alphabet = "abcdefghijklmnopqrstuvwxyz"
     let pos = alphabet.indexOf(char)
@@ -103,9 +123,9 @@ function shifted_letter(char, key) {
 
 
 function poly_encrypt(input, key) {
-
+    //TODO: Encryption function
 }
 
 function poly_decrypt(input, key) {
-
+    //TODO: Decryption function
 }
