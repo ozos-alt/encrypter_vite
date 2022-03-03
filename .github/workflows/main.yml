@@ -1,8 +1,6 @@
 name: "publish"
 on:
-  push:
-    branches:
-      - release
+  workflow_dispatch:
 
 jobs:
   publish-tauri:
@@ -29,12 +27,16 @@ jobs:
         sudo apt-get install -y webkit2gtk-4.0
     - name: install app dependencies and build it
       run: yarn && yarn vite-tauri build
-    - uses: tauri-apps/tauri-action@v0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Zip Release
+      uses: TheDoctor0/zip-release@0.6.1
       with:
-        tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-        releaseName: "App v__VERSION__"
-        releaseBody: "See the assets to download this version and install."
-        releaseDraft: true
-        prerelease: false
+        filename: ${{ matrix.platform }}
+        path: src-tauri/target/release/bundle/
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ matrix.platform }}.zip
+        tag: ${{ github.ref }}
+        overwrite: true
+        file_glob: true
