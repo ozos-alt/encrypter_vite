@@ -4,7 +4,7 @@ import { appWindow } from '@tauri-apps/api/window'
 //Global encrypt / decrypt mode select (0 encrypt || 1 decrypt)
 let encrypt_decrypt = 0;
 
-//Button press listener
+//Run button press listener
 let button = document.getElementById('encrypt_button')
 button.addEventListener("click", () => {
     run_button_pressed()
@@ -14,6 +14,12 @@ button.addEventListener("click", () => {
 let operation_selector = document.getElementById("encrypt_decrypt")
 operation_selector.addEventListener("change", () => {
     operation_select()
+})
+
+//Quit button listener
+let exitButton = document.getElementById('quitButton')
+exitButton.addEventListener("click", () => {
+    appWindow.close()
 })
 
 document.addEventListener('keydown', (event) => {
