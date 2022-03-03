@@ -49,4 +49,23 @@ input {
   text-decoration: none;
   display: inline-block;
   border: none;
+
+  height: 20px;
+  width: 200px;
+}
+
+input[type="button"] {
+  border-radius: 5px;
+  box-shadow: none;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  background-color: azure;
+  transition: 0.3s;
+  width: 50px;
+}
+
+input[type="button"]:hover {
+  background-color: chartreuse;
+  color: azure;
 }

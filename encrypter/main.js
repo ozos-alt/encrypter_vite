@@ -1,4 +1,5 @@
 import * as seedrandom from 'seedrandom'
+import { appWindow } from '@tauri-apps/api/window'
 
 //Global encrypt / decrypt mode select (0 encrypt || 1 decrypt)
 let encrypt_decrypt = 0;
@@ -13,6 +14,12 @@ button.addEventListener("click", () => {
 let operation_selector = document.getElementById("encrypt_decrypt")
 operation_selector.addEventListener("change", () => {
     operation_select()
+})
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        appWindow.close()
+    }
 })
 
 
@@ -67,10 +74,10 @@ function run_button_pressed() {
         if(method_selection.value === "mono_alphabetic") {
             output_field.value = caesar_operation(userInput, Math.abs(key))
             input_field.value = "";
-            console.log("Key:" + Math.abs(key))
         }
         if(method_selection.value === "poly_alphabetic") {
-            //TODO: call to poly-alphabetical encryption function
+            output_field.value = poly_encrypt(userInput, Math.abs(key))
+            input_field.value = "";
         }
     }
 
@@ -78,11 +85,11 @@ function run_button_pressed() {
     if (encrypt_decrypt === 1) {
         if (method_selection.value === "mono_alphabetic") {
             output_field.value = caesar_operation(userInput, -Math.abs(key))
-            console.log("Key:" + -Math.abs(key))
             input_field.value = "";
         }
         if(method_selection.value === "poly_alphabetic") {
-            //TODO: call to poly-alphabetical decryption function
+            output_field.value = poly_decrypt(userInput, Math.abs(key))
+            input_field.value = "";
         }
     }
 }
@@ -94,20 +101,17 @@ function caesar_operation(input, key) {
     let encrypted_text = ""
 
     for (let i = 0; i < input_text.length; i++) {
-        //console.log(input_text[i])
-        encrypted_text = encrypted_text + shifted_letter(input_text[i], key)
+        encrypted_text = encrypted_text + shift_letter(input_text[i], key)
     }
 
     return(encrypted_text)
 }
 
 //Shift letters with support for negative keys
-function shifted_letter(char, key) {
+function shift_letter(char, key) {
     let alphabet = "abcdefghijklmnopqrstuvwxyz"
     let pos = alphabet.indexOf(char)
-    console.log("pos: " + pos)
     let new_pos = pos + key
-    console.log("new pos: " + new_pos)
 
     let wrapped_new_pos = new_pos;
 
@@ -117,15 +121,34 @@ function shifted_letter(char, key) {
     if (wrapped_new_pos < 0){
         wrapped_new_pos = Math.abs(new_pos % 26 + 26) % 26
     }
-    console.log("Wrapped position: " + wrapped_new_pos)
     return(alphabet[wrapped_new_pos])
 }
 
-
-function poly_encrypt(input, key) {
-    //TODO: Encryption function
+//generate an array of random int32 numbers
+function generateRandomArray(length, key) {
+    let rng = seedrandom(key)
+    let tmpArray = []
+    for (let i = 0; i < length; i++) {
+        tmpArray.push(rng.int32())
+    }
+    return tmpArray
 }
 
-function poly_decrypt(input, key) {
-    //TODO: Decryption function
+
+function poly_encrypt(input, seedKey) {
+    let encryptedString = ""
+    let keyArray = generateRandomArray(input.length, seedKey)
+    for (let i = 0; i < input.length; i++) {
+        encryptedString = encryptedString + shift_letter(input[i], Math.abs(keyArray[i]))
+    }
+    return encryptedString
+}
+
+function poly_decrypt(input, seedKey) {
+    let decryptedString = ""
+    let keyArray = generateRandomArray(input.length, seedKey)
+    for (let i = 0; i < input.length; i++) {
+        decryptedString = decryptedString + shift_letter(input[i], -Math.abs(keyArray[i]))
+    }
+    return decryptedString
 }

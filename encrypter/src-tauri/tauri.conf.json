@@ -1,13 +1,13 @@
 {
   "package": {
-    "productName": "encrypter",
-    "version": "0.1.0"
+    "productName": "Encrypter",
+    "version": "1.0.0"
   },
   "build": {
     "distDir": "Injected by vite-plugin-tauri",
     "devPath": "Injected by vite-plugin-tauri",
     "beforeDevCommand": "",
-    "beforeBuildCommand": ""
+    "beforeBuildCommand": "",
   },
   "tauri": {
     "bundle": {
@@ -58,7 +58,7 @@
         "width": 800,
         "height": 600,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": true
       }
     ],
     "security": {
